@@ -2,10 +2,10 @@
   "name": "mean_project",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "Start": "node index.js",
-    "devStart": "nodemon index.js"
+    "Start": "node server.js",
+    "devStart": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
