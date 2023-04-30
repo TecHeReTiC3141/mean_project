@@ -3,8 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>Homepage</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="index.js"></script>
 </head>
 <body>
-    <h2>content</h2>
+    <div class="content">
+        <h2>CRUD app</h2>
+        <form action="index.ejs" method="POST">
+            <label> Name:
+                <input type="text" name="name" placeholder="insert entry name">
+                <button class="add-btn">Add</button>
+            </label>
+        </form>
+
+        <form action="index.ejs" method="get">
+            <label>
+                <input type="text" name="pattern" placeholder="insert search pattern">
+                <button class="search-btn">Search</button>
+            </label>
+        </form>
+        <table class="data">
+            <caption>Entries</caption>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Time</th>
+                <th>Name</th>
+            </tr>
+            </thead>
+
+            <tr>
+                <td colspan="3">No data here</td>
+            </tr>
+        </table>
+    </div>
+
+
 </body>
 </html>
