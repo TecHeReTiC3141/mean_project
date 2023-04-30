@@ -1,0 +1,9 @@
+meta:
+  environment: node
+  toolchain:
+    name: npm
+    version: 16
+
+run:
+  scriptName: server.js
+  containerPort: 3000
