@@ -1,4 +1,6 @@
 $(document).ready(() => {
+    fetch('http://localhost:3000/getAll')
+        .then(res => console.log(res.json()));
     createTable([]);
 });
 
