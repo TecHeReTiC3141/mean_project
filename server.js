@@ -15,19 +15,25 @@ app.set('layout', 'layouts/layout'); // for header and footer templates
 
 app.use(expressLayouts);
 app.use(express.static(__dirname + '/public'));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use('/', indexRouter);
 app.use(cors());
 
 // add data
 app.post('/insert', (req, res) => {
-
+    const {name} = req.body;
+    console.log(name);
 });
 
 // read data
 app.get('/getAll', (req, res) => {
-    res.json({
-        success: true,
-    })
+    const db = dbService.getDbServiceInstance();
+    const result = db.getAll();
+    result
+        .then(data => res.json({data}))
+        .catch(err => console.log(err));
+
 });
 
 // delete data

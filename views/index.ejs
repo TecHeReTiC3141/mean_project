@@ -10,19 +10,21 @@
 <body>
     <div class="content">
         <h2>CRUD app</h2>
-        <form action="index.ejs" method="POST">
+        <div>
             <label> Name:
-                <input type="text" name="name" placeholder="insert entry name">
-                <button class="add-btn">Add</button>
-            </label>
-        </form>
+                <input type="text" name="name" id="name-input" placeholder="insert entry name">
 
-        <form action="index.ejs" method="get">
-            <label>
-                <input type="text" name="pattern" placeholder="insert search pattern">
-                <button class="search-btn">Search</button>
             </label>
-        </form>
+            <button class="add-btn">Add</button>
+        </div>
+
+        <div>
+            <label>
+                <input type="text" name="pattern" id="search-input" placeholder="insert search pattern">
+
+            </label>
+            <button class="search-btn">Search</button>
+        </div>
         <table class="data">
             <caption>Entries</caption>
             <thead>
