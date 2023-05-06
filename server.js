@@ -48,8 +48,17 @@ app.get('/getAll', (req, res) => {
 });
 
 // delete data
-app.delete('/delete', (req, res) => {
+app.delete('/delete/:id', (req, res) => {
+    console.log(req.params);
+    const { id } = req.params;
 
+    const db = dbService.getDbServiceInstance();
+
+    const result = db.deleteRow(id);
+
+    result
+        .then(data => res.json( { success: data })) // data - thing which is returned by promise;
+        .catch(err => console.log(err.message));
 });
 
 app.listen(process.env.PORT || 3000,

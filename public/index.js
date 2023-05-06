@@ -40,12 +40,24 @@ function insertRowInTable(row) {
         function() {
             let deleteId = $(this).data('id');
             console.log(deleteId);
+            deleteRowById(deleteId);
         });
     $('.data tbody tr:last-child .edit-btn').on('click',
         function() {
             let editId = $(this).data('id');
             console.log(editId);
         });
+}
+
+function deleteRowById(id) {
+    fetch(`http://localhost:3000/delete/${id}`, {
+        method: 'DELETE',
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) location.reload();
+        })
+        .catch(err => console.log(err.message))
 }
 
 function createTable(data) {
