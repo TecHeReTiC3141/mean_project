@@ -5,8 +5,8 @@ $(document).ready(() => {
 
     $('.add-btn').on('click', function() {
         const name = $('#name-input').val();
-        $('#name-input').value = "";
-        console.log('hello', name);
+        $('#name-input').val('');
+        console.log(name);
         fetch('http://localhost:3000/insert', {
             method: 'POST',
             headers: {
@@ -21,12 +21,21 @@ $(document).ready(() => {
 });
 
 function insertRowInTable(row) {
-    $('.data tbody').append()
+    console.log(row);
+    $('.data tbody').append(`<tr>
+                                <td>${ row.ID }</td> 
+                                <td>${ row.Date }</td> 
+                                <td>${ row.Name }</td> 
+                                <td><button>Delete</button></td> 
+                                <td><button>Edit</button></td> 
+                            </tr>`);
 }
 
 function createTable(data) {
     if (data.length === 0) {
         $('.data tbody').empty()
-            .append('<tr><td colspan="3">No data here</td></tr>');
+            .append('<tr><td colspan="5">No data here</td></tr>');
+    } else {
+        data.forEach(insertRowInTable);
     }
 }

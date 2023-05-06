@@ -24,6 +24,13 @@ app.use(cors());
 app.post('/insert', (req, res) => {
     const {name} = req.body;
     console.log(name);
+    const db = dbService.getDbServiceInstance();
+
+    const result = db.insertNewRow(name);
+
+    result
+        .then(data => res.json({ success: true }))
+        .catch(err => console.log(err))
 });
 
 // read data

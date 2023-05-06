@@ -40,6 +40,22 @@ class DbService {
             console.log(err.message);
         }
     }
+
+    async insertNewRow(name) {
+        try {
+            const insertId = await new Promise((resolve, reject) => {
+                const query = `INSERT INTO crud_data (Name, Date)
+                                VALUES (?, ?)`;
+                connection.query(query, [name, new Date()], (err, result) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(result.insertId);
+                });
+            });
+            console.log(insertId);
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
 }
 
 module.exports = DbService;
