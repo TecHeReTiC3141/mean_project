@@ -69,16 +69,33 @@ class DbService {
                                 WHERE ID = ?`;
                 connection.query(query, [+id], (err, result) => {
                     if (err) reject(new Error(err.message));
+                    console.log(result);
                     resolve(result.affectedRows);
                 });
             });
-            console.log(response);
             return response === 1;
         } catch (err) {
             console.log(err.message);
             return false;
         }
+    }
 
+    async updateNameById(id, newVal) {
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = `UPDATE crud_data 
+                                SET Name = ?
+                                WHERE ID = ?`;
+                connection.query(query, [newVal, id], (err, result) => {
+                    if (err) reject(new Error(err.message));
+                    console.log(result.affectedRows);
+                    resolve(result.affectedRows);
+                });
+            });
+            return response === 1;
+        } catch (err) {
+            console.log(err.message);
+        }
     }
 }
 

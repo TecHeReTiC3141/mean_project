@@ -20,7 +20,36 @@ $(document).ready(() => {
                 insertRowInTable(data.data);
             })
             .catch(err => console.log(err));
-    })
+    });
+
+    $('.edit-submit').on('click', function() {
+        $(this).parent().fadeOut(500);
+        let newVal = $('#edit-name').val();
+        $('#edit-name').val('');
+        fetch('http://localhost:3000/update/', {
+            method: 'PATCH',
+            headers: {
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify({
+                id: $(this).data('editId'),
+                newVal
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    ajaxUpdate();
+                }
+            })
+
+    });
+
+    $('.edit-cancel').on('click', function() {
+        $(this).parent().fadeOut(500);
+        $('#edit-name').val('');
+    });
+
 });
 
 function insertRowInTable(row) {
@@ -46,7 +75,19 @@ function insertRowInTable(row) {
         function() {
             let editId = $(this).data('id');
             console.log(editId);
+            handleEdit(editId);
         });
+}
+
+function handleEdit(editId) {
+    $('.edit').fadeIn(500);
+    $('.edit-submit').data('editId', editId);
+}
+
+function ajaxUpdate() {
+    $.get('http://localhost:3000/getAll', (data, status) => {
+        createTable(data.data);
+    });
 }
 
 function deleteRowById(id) {
@@ -56,9 +97,7 @@ function deleteRowById(id) {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                $.get('http://localhost:3000/getAll', (data, status) => {
-                    createTable(data.data);
-                })
+                ajaxUpdate();
             };
         })
         .catch(err => console.log(err.message))

@@ -61,5 +61,18 @@ app.delete('/delete/:id', (req, res) => {
         .catch(err => console.log(err.message));
 });
 
+app.patch('/update', (req, res) => {
+    const db = dbService.getDbServiceInstance();
+    const { id, newVal } = req.body;
+
+    const result = db.updateNameById(id, newVal);
+
+    result
+        .then(data => res.json({ success: data }))
+        .catch(err => console.log(err.message));
+
+});
+
+
 app.listen(process.env.PORT || 3000,
     () => console.log('On http://localhost:3000'));
