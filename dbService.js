@@ -43,18 +43,27 @@ class DbService {
 
     async insertNewRow(name) {
         try {
+            let dateAdded = new Date();
             const insertId = await new Promise((resolve, reject) => {
                 const query = `INSERT INTO crud_data (Name, Date)
                                 VALUES (?, ?)`;
-                connection.query(query, [name, new Date()], (err, result) => {
+                connection.query(query, [name, dateAdded], (err, result) => {
                     if (err) reject(new Error(err.message));
                     resolve(result.insertId);
                 });
             });
-            console.log(insertId);
+            return {
+                ID: insertId,
+                Name: name,
+                Date: dateAdded,
+            };
         } catch (err) {
             console.log(err.message);
         }
+    }
+
+    async deleteRow(id) {
+
     }
 }
 

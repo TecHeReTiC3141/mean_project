@@ -27,9 +27,13 @@ app.post('/insert', (req, res) => {
     const db = dbService.getDbServiceInstance();
 
     const result = db.insertNewRow(name);
+    console.log(result);
 
     result
-        .then(data => res.json({ success: true }))
+        .then(data => {
+            console.log(data);
+            res.json({ data })
+        })
         .catch(err => console.log(err))
 });
 
