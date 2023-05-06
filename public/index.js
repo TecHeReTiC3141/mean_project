@@ -55,15 +55,19 @@ function deleteRowById(id) {
     })
         .then(response => response.json())
         .then(data => {
-            if (data.success) location.reload();
+            if (data.success) {
+                $.get('http://localhost:3000/getAll', (data, status) => {
+                    createTable(data.data);
+                })
+            };
         })
         .catch(err => console.log(err.message))
 }
 
 function createTable(data) {
+    $('.data tbody').empty();
     if (data.length === 0) {
-        $('.data tbody').empty()
-            .append('<tr><td colspan="5" class="no-data">No data here</td></tr>');
+        $('.data tbody').append('<tr><td colspan="5" class="no-data">No data here</td></tr>');
     } else {
         data.forEach(insertRowInTable);
     }
