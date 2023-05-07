@@ -82,8 +82,7 @@ app.get('/search/:pattern', (req, res) => {
         .then( data => res.json({ data }))
         .catch(err => console.log(err.message));
 
-})
-
+}) // TODO: make search every time when search field is changed using ajax
 
 app.listen(process.env.PORT || 3000,
     () => console.log('On http://localhost:3000'));

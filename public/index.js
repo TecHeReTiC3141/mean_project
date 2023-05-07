@@ -1,3 +1,5 @@
+let isSorted = false;
+
 $(document).ready(() => {
     fetch('http://localhost:3000/getAll')
         .then(res => res.json())
@@ -18,6 +20,7 @@ $(document).ready(() => {
             .then(data => {
                 console.log(data);
                 insertRowInTable(data.data);
+                if (isSorted) ajaxUpdate();
             })
             .catch(err => console.log(err));
     });
@@ -57,6 +60,20 @@ $(document).ready(() => {
             .then( data => createTable(data.data))
             .catch(err => console.log(err));
     });
+
+    $('.sort-btn').on('click', function() {
+        if ($(this).hasClass('on')) {
+            $(this).removeClass('on');
+            $(this).addClass('off');
+            isSorted = false;
+        } else {
+            $(this).removeClass('off');
+            $(this).addClass('on');
+            isSorted = true;
+        }
+        ajaxUpdate();
+
+    })
 });
 
 function insertRowInTable(row) {
@@ -84,6 +101,7 @@ function insertRowInTable(row) {
             console.log(editId);
             handleEdit(editId);
         });
+
 }
 
 function handleEdit(editId) {
@@ -115,6 +133,10 @@ function createTable(data) {
     if (data.length === 0) {
         $('.data tbody').append('<tr><td colspan="5" class="no-data">No data here</td></tr>');
     } else {
+        if (isSorted) {
+            data = data.sort((a, b) => a.Name.localeCompare(b.Name));
+        }
         data.forEach(insertRowInTable);
+
     }
 }
