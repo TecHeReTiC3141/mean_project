@@ -50,6 +50,13 @@ $(document).ready(() => {
         $('#edit-name').val('');
     });
 
+    $('.search-btn').on('click', function() {
+        let patt = $('#search-input').val();
+        fetch(`http://localhost:3000/search/${patt}`)
+            .then(response => response.json())
+            .then( data => createTable(data.data))
+            .catch(err => console.log(err));
+    });
 });
 
 function insertRowInTable(row) {

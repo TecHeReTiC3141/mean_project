@@ -97,6 +97,23 @@ class DbService {
             console.log(err.message);
         }
     }
+
+    async searchByPattern(pattern) {
+        console.log(pattern);
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = `SELECT * FROM crud_data 
+                                WHERE INSTR(name, ?) > 0`;
+                connection.query(query, [pattern], (err, result) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(result);
+                });
+            });
+            return response;
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
 }
 
 module.exports = DbService;

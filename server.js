@@ -70,8 +70,19 @@ app.patch('/update', (req, res) => {
     result
         .then(data => res.json({ success: data }))
         .catch(err => console.log(err.message));
-
 });
+
+app.get('/search/:pattern', (req, res) => {
+    const { pattern } = req.params;
+    const db = dbService.getDbServiceInstance();
+
+    const result = db.searchByPattern(pattern);
+
+    result
+        .then( data => res.json({ data }))
+        .catch(err => console.log(err.message));
+
+})
 
 
 app.listen(process.env.PORT || 3000,
